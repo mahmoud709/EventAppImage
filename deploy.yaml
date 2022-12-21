@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      label-name-1: label-value
+      another-label: my-app-name
+  template:
+    metadata:
+      name: webapp-pod
+      labels:
+        app: webapp-pod
+        label-name-1: label-value
+        another-label: my-app-name
+    spec:
+      containers:
+        - image: mahmoud825/webapp
+          name: webapp-container
+          imagePullPolicy: IfNotPresent
+          ports: 
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+            requests:
+              memory: "100Mi"
